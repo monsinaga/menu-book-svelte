@@ -1,9 +1,21 @@
 <script lang="ts">
+	import { cartCounter } from '$lib/store/order';
 	import MenuPrice from './MenuPrice.svelte';
 	export let name: string;
 	export let description: string;
 	export let photoUrl: string;
 	export let prices: { label: string; price: number }[];
+
+	const add = () => {
+		cartCounter.update((n) => n + 1);
+	};
+
+	const substract = () => {
+		cartCounter.update((n) => {
+			if(n <= 0) return n;
+			return n - 1;
+		});
+	};
 </script>
 
 <div class="menu-tile">
@@ -18,6 +30,9 @@
 	{#each prices as p}
 		<MenuPrice label={p.label} price={p.price} />
 	{/each}
+
+	<button class="add" on:click={add}> Tambah </button>
+	<button class="substract" on:click={substract}> Kurang </button>
 </div>
 
 <style>
@@ -49,5 +64,23 @@
 		padding: 0px 16px;
 		height: 60px;
 		padding-bottom: 16px;
+	}
+
+	button {
+		padding: 8px 16px;
+		border: none;
+	}
+
+	button.add {
+		background-color: #f44336;
+		color: white;
+		margin-bottom: 8px;
+		margin-top: 16px;
+	}
+
+	button.substract {
+		border: 1px solid #f44336;
+		color: #f44336;
+		background-color: white;
 	}
 </style>
