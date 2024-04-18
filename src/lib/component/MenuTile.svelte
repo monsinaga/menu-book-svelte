@@ -1,20 +1,58 @@
 <script lang="ts">
-	import { cartCounter } from '$lib/store/order';
+	import { coffeeCounter, pizzaCounter, saladCounter, wineCounter } from '$lib/store/order';
 	import MenuPrice from './MenuPrice.svelte';
+
+	export let id: string;
 	export let name: string;
 	export let description: string;
 	export let photoUrl: string;
 	export let prices: { label: string; price: number }[];
 
+	$: counter =
+		id === 'salad'
+		   ? $saladCounter
+		   : id === 'pizza'
+			   ? $pizzaCounter
+			   : id === 'wine'
+				   ? $wineCounter
+				   : id === 'coffee'
+					   ? $coffeeCounter
+					   : 0;
+
 	const add = () => {
-		cartCounter.update((n) => n + 1);
+		if (id === 'salad') {
+			saladCounter.update((n) => n + 1);
+		} else if (id === 'pizza') {
+			pizzaCounter.update((n) => n + 1);
+		} else if (id === 'wine') {
+			wineCounter.update((n) => n + 1);
+		} else if (id === 'coffee') {
+			coffeeCounter.update((n) => n + 1);
+		}
 	};
 
 	const substract = () => {
-		cartCounter.update((n) => {
-			if(n <= 0) return n;
-			return n - 1;
-		});
+		if (id === 'salad') {
+			saladCounter.update((n) => {
+				if (n <= 0) return n;
+				return n - 1;
+			});
+		} else if (id === 'pizza') {
+			pizzaCounter.update((n) => {
+				if (n <= 0) return n;
+				return n - 1;
+			});
+		} else if (id === 'wine') {
+			wineCounter.update((n) => {
+				if (n <= 0) return n;
+				return n - 1;
+			});
+		} else if (id === 'coffee') {
+			coffeeCounter.update((n) => {
+				if (n <= 0) return n;
+				return n - 1;
+			});
+		}
 	};
 </script>
 
@@ -22,7 +60,7 @@
 	<div class="menu-photo">
 		<img src={photoUrl} alt={name} />
 	</div>
-	<div class="menu-tile-name">{name}</div>
+	<div class="menu-tile-name">{name} ({counter})</div>
 	<div class="menu-tile-description">
 		{description}
 	</div>

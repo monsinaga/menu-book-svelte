@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { cartCounter } from '$lib/store/order';
+	import { totalOrderCount } from '$lib/store/order';
 	import MenuTile from '../lib/component/MenuTile.svelte';
 	import { menus } from '../lib/store/menu';
 </script>
 
-<div class="appbar">Kongkow Cafe ({$cartCounter})</div>
+<div class="appbar">Kongkow Cafe ({$totalOrderCount})</div>
 <div class="hero">
 	<img
 		src="https://cdn.themistakenman.com/wp-content/uploads/2022/08/fast-food-business.webp"
@@ -19,6 +19,7 @@
 <div class="menu-area">
 	{#each $menus as menu}
 		<MenuTile
+		    id={menu.id}
 			photoUrl={menu.photoUrl}
 			name={menu.name}
 			description={menu.description}
