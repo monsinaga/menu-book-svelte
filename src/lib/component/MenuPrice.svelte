@@ -1,6 +1,12 @@
 <script lang="ts">
+	import { order } from "$lib/store/order"
+
+	export let menuId: string;
+	export let id: string;
 	export let label: string;
 	export let price: number;
+
+	$: counter = $order[id + '_' + menuId] ?? 0;
 </script>
 
 <div class="menu-price-row">

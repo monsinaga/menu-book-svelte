@@ -19,7 +19,7 @@
 <div class="menu-area">
 	{#each $menus as menu}
 		<MenuTile
-		    id={menu.id}
+			id={menu.id}
 			photoUrl={menu.photoUrl}
 			name={menu.name}
 			description={menu.description}
